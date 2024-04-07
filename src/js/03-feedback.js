@@ -19,15 +19,18 @@ if (dataStorage.message !== '') {
   data.message = dataStorage.message;
 }
 
-form.addEventListener('input', e => {
-  if (e.target.name === 'email') {
-    data.email = e.target.value;
-  }
-  if (e.target.name === 'message') {
-    data.message = e.target.value;
-  }
-  localStorage.setItem('feedback-form-state', JSON.stringify(data));
-});
+form.addEventListener(
+  'input',
+  _.throttle(e => {
+    if (e.target.name === 'email') {
+      data.email = e.target.value;
+    }
+    if (e.target.name === 'message') {
+      data.message = e.target.value;
+    }
+    localStorage.setItem('feedback-form-state', JSON.stringify(data));
+  }, 500)
+);
 
 form.addEventListener('submit', ev => {
   ev.preventDefault();
