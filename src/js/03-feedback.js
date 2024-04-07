@@ -2,15 +2,21 @@ import _ from 'lodash';
 
 const form = document.querySelector('.feedback-form');
 const email = document.querySelector('[name=email]');
+const mess = document.querySelector('[name=message]');
 
+const dataStorage = JSON.parse(localStorage.getItem('feedback-form-state'));
 const data = {
   email: '',
   message: '',
 };
-console.log(email);
-const dataStorage = JSON.parse(localStorage.getItem('feedback-form-state'));
+
 if (dataStorage.email !== '') {
   email.value = dataStorage.email;
+  data.email = dataStorage.email;
+}
+if (dataStorage.message !== '') {
+  mess.value = dataStorage.message;
+  data.message = dataStorage.message;
 }
 
 form.addEventListener('input', e => {
@@ -21,4 +27,13 @@ form.addEventListener('input', e => {
     data.message = e.target.value;
   }
   localStorage.setItem('feedback-form-state', JSON.stringify(data));
+});
+
+form.addEventListener('submit', ev => {
+  ev.preventDefault();
+  console.log(data);
+  data.email = '';
+  data.message = '';
+  localStorage.setItem('feedback-form-state', JSON.stringify(data));
+  form.reset();
 });
