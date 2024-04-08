@@ -30,7 +30,7 @@ form.addEventListener(
 );
 
 form.addEventListener('submit', ev => {
+  console.log(data);
   form.reset();
   localStorage.clear();
-  console.log(data);
 });
