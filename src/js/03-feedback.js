@@ -30,6 +30,7 @@ form.addEventListener(
 );
 
 form.addEventListener('submit', ev => {
+  ev.preventDefault();
   console.log(data);
   form.reset();
   localStorage.clear();
